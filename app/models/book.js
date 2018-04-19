@@ -5,9 +5,6 @@ var BookSchema = new mongoose.Schema({
         type: String,
         required:true
     },
-    coverArtBy:{
-        type: String,
-    },
     title: {
         type: String,
         required: true
@@ -16,11 +13,9 @@ var BookSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    publishingInfo:[{
-        publisher: String,
-        publishDate: Date,
-        edition: String
-    }],
+    publisher: String,
+    publishDate: String,
+    edition: String,
     isbn:{
         type: Number,
         required: true
@@ -33,7 +28,8 @@ var BookSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    review:{
+    review: String,
+    owner: {
         type: String
     }
 }, {

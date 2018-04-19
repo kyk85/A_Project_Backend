@@ -42,8 +42,8 @@ authRoutes.get('/protected', requireAuth, function(req, res){
 // /api/book/...
 apiRoutes.use('/book', bookRoutes);
 
-bookRoutes.get('/', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.getBooks);
-bookRoutes.post('/', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.createBook);
+bookRoutes.get('/:user_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.getBooks);
+bookRoutes.post('/:user_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.createBook);
 bookRoutes.delete('/:book_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.deleteBook);
 
 // Inquiry Routes
