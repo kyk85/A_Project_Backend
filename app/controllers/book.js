@@ -29,9 +29,8 @@ exports.createBook = function(req, res, next){
 }
 
 exports.deleteBook = function(req, res, next){
-    console.log(req.params.book._id)
     Book.remove({
-        _id: req.params.book._id
+        _id: req.params.book_id
     }, function(err, todo){
         res.json(book)
     });
