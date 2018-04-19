@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var BookSchema = new mongoose.Schema({
     coverArt: { 
-        url: String,
+        type: String,
         required:true
     },
     coverArtBy:{
