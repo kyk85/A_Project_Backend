@@ -44,6 +44,7 @@ apiRoutes.use('/book', bookRoutes);
 
 bookRoutes.get('/:user_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.getBooks);
 bookRoutes.post('/:user_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.createBook);
+bookRoutes.post('/:user_id/:book_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.editBook);
 bookRoutes.delete('/:user_id/:book_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.deleteBook);
 
 // Inquiry Routes

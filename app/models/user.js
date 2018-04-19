@@ -29,13 +29,14 @@ var UserSchema = new mongoose.Schema({
     },
     displayPic: {
         type: String,
-        default: "C:\ProgramData\Microsoft\User Account Pictures\User.png"
+        default: "https://eliaslealblog.files.wordpress.com/2014/03/user-200.png"
     },
     library: [{
         title: String,
         author: String,
         isbn: Number,
-        coverArt: String
+        coverArt: String,
+        isRead: {type: Boolean, default: false}
     }],
     isDisabled: {
         type: Boolean,
