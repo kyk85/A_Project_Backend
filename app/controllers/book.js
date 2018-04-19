@@ -1,7 +1,17 @@
 var Book = require('../models/book');
 
+// exports.getBooks = function(req, res, next){
+//     Book.find(function(err, books){
+//         if (err){
+//             res.send(err);
+//         }
+//         res.json(books)
+//     });
+// }
+
 exports.getBooks = function(req, res, next){
-    Book.find(function(err, books){
+    var user = req.params.user_id
+    Book.find({'owner': user}, function(err, books){
         if (err){
             res.send(err);
         }
