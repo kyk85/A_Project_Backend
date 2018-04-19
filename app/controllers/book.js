@@ -13,7 +13,8 @@ exports.createBook = function(req, res, next){
     Book.create({
         title: req.body.title,
         author: req.body.author,
-        isbn: req.body.isbn
+        isbn: req.body.isbn,
+        coverArt: req.body.coverArt
     }, function(err, book){
         if(err){
             res.send(err)
