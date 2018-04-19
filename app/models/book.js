@@ -1,10 +1,13 @@
 var mongoose = require('mongoose');
 
 var BookSchema = new mongoose.Schema({
-    coverArt: [{ 
+    coverArt: { 
         url: String,
-        artist: String
-    }],
+        required:true
+    },
+    coverArtBy:{
+        type: String,
+    },
     title: {
         type: String,
         required: true
