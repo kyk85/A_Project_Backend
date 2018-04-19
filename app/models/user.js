@@ -1,6 +1,13 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
+var ItemSchema = new mongoose.Schema({
+    title: String,
+    author: String
+}, {
+    timestamps: true
+})
+
 var UserSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -18,12 +25,17 @@ var UserSchema = new mongoose.Schema({
         default: 'user'
     },
     displayName: {
+        type: String
+    },
+    displayPic: {
         type: String,
+        default: "C:\ProgramData\Microsoft\User Account Pictures\User.png"
     },
     library: [{
         owned: Number,
         read: Number,
-        wishlist: Number
+        wishlist: Number,
+        ownedBooks: [ItemSchema]
     }],
     isDisabled: {
         type: Boolean,
