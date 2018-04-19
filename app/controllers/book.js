@@ -12,11 +12,11 @@ var User = require('../models/user');
 
 exports.getBooks = function(req, res, next){
     var user = req.params.user_id
-    Book.find({'owner': user}, function(err, books){
+    User.findById(user, 'library', function(err, data){
         if (err){
             res.send(err);
         }
-        res.json(books)
+        res.json(data)
     });
 }
 
@@ -42,30 +42,42 @@ exports.getBooks = function(req, res, next){
 // }
 
 exports.createBook = function(req, res, next){
-    User.library.ownedBooks.push({
-        title: req.body.title,
-        author: req.body.author,
-        isbn: req.body.isbn,
-        coverArt: req.body.coverArt,
-        owner: req.body.owner
-    }, function(err, book){
-        if(err){
-            res.send(err)
-        }
 
-        Book.find(function(err, books){ // Lists books including newly created
-            if(err){
-                res.send(err);
-            }
-            res.json(books)
-        });
+    console.log(req.params.user_id)
+    var book = {
+        title:req.body.title,
+        author:req.body.author,
+        isbn: req.body.isbn,
+        coverArt: req.body.coverArt
+    }
+    User.findByIdAndUpdate(req.params.user_id, {$push: {library: book}}).then(()=>{
+        User.markModified('library');
+        User.save();
     });
+
+    User.findById(req.params.user_id, 'library', function(err, data){
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    })
 }
 
 exports.deleteBook = function(req, res, next){
-    Book.remove({
-        _id: req.params.book_id
-    }, function(err, book){
-        res.json(book)
+    // var user = req.params.user_id
+    // var book = req.params.book_id
+    // var test = User.findById(req.params.user_id)
+    // console.log(test)
+    User.findByIdAndUpdate(req.params.user_id, {$pull: {library: {_id:req.params.book_id}}}).then((data)=>{
+        // res.json(data)
+        User.markModified('library');
+        User.save();
     });
+
+    User.findById(req.params.user_id, 'library', function(err, data){
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    })
 }

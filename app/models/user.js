@@ -32,10 +32,10 @@ var UserSchema = new mongoose.Schema({
         default: "C:\ProgramData\Microsoft\User Account Pictures\User.png"
     },
     library: [{
-        owned: Number,
-        read: Number,
-        wishlist: Number,
-        ownedBooks: [ItemSchema]
+        title: String,
+        author: String,
+        isbn: Number,
+        coverArt: String
     }],
     isDisabled: {
         type: Boolean,
