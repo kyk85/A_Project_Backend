@@ -32,9 +32,9 @@ authRoutes.post('/register', AuthController.register);
 authRoutes.post('/login', requireLogin, AuthController.login);
 
 authRoutes.get('/protected', requireAuth, function(req, res){
-    if (err) {
-        res.send({content: 'Not yet authorized'});
-    }
+    // if (err) {
+    //     res.send({content: 'Not yet authorized'});
+    // }
     res.send({content: 'Success'});
 });
 
