@@ -51,7 +51,7 @@ exports.register = function(req, res, next) {
         var user = new User ({
             email: email,
             password: password,
-            role: role
+            displayName: displayName
         });
 
         user.save(function(err, user){
@@ -64,7 +64,7 @@ exports.register = function(req, res, next) {
             res.status(201).json({
                 token: 'JWT ' + generateToken(userInfo),
                 user: userInfo,
-                message: userInfo.email + " has been created!"
+                message: userInfo.displayName + " has been created!"
             })
         })
     })
