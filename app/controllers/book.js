@@ -68,7 +68,7 @@ exports.editBook = function(req, res, next){
     // var book = req.params.book_id
     // var test = User.findById(req.params.user_id)
     // console.log(test)
-    User.library.find({_id:req.params.book_id},
+    User.find({library:{_id:req.params.book_id}},
         {$set: {
             title:req.body.title,
             author:req.body.author,
