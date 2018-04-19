@@ -15,7 +15,7 @@ exports.createBook = function(req, res, next){
         author: req.body.author,
         isbn: req.body.isbn,
         coverArt: req.body.coverArt,
-        // owner: req.params.user_id
+        owner: req.body.userId
     }, function(err, book){
         if(err){
             res.send(err)
