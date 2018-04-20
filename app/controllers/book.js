@@ -64,16 +64,7 @@ exports.createBook = function(req, res, next){
 }
 
 exports.editBook = function(req, res, next){
-    // var user = req.params.user_id
-    // var book = req.params.book_id
-    // var test = User.findById(req.params.user_id)
-    // console.log(test)
     User.findOneAndUpdate(
-        // {$unwind:'$library'},
-        // {$match: {'library.id': 'ObjectId(' + req.params.book_id + ')'}},
-        // {$group: {_id:"$_id", library: {$push:'$library'}}},
-        // {'_id' : req.params.user_id},
-        // {'library':{$elemMatch:{ '_id' : req.params.book_id}}},
         {'_id':req.params.user_id,'library._id': req.params.book_id},
         {'library.$.title': req.body.title,
         'library.$.author': req.body.author,
@@ -93,12 +84,7 @@ exports.editBook = function(req, res, next){
 }
 
 exports.deleteBook = function(req, res, next){
-    // var user = req.params.user_id
-    // var book = req.params.book_id
-    // var test = User.findById(req.params.user_id)
-    // console.log(test)
     User.findByIdAndUpdate(req.params.user_id, {$pull: {library: {_id:req.params.book_id}}}).then((data)=>{
-        // res.json(data)
         User.markModified('library');
         User.save();
     });
