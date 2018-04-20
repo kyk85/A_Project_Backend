@@ -12,7 +12,9 @@ function setUserInfo(request){
     return {
         _id: request._id,
         email: request.email,
-        role: request.role
+        role: request.role,
+        displayName: request.displayName,
+        displayPic: request.displayPic
     };
 }
 
