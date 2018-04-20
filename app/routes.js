@@ -1,6 +1,7 @@
 var AuthController = require ('./controllers/authentication');
 var BookController = require ('./controllers/book');
-var EmailController = require ('./controllers/email')
+var EmailController = require ('./controllers/email');
+var UserController = require ('./controllers/user');
 var express = require ('express');
 var passportService = require ('../config/passport');
 var passport = require ('passport');
@@ -13,21 +14,20 @@ module.exports = function(app){
     var apiRoutes = express.Router();
     var baseRoute = express.Router();
     var authRoutes = express.Router();
+    var userRoutes = express.Router();
     var bookRoutes = express.Router();
     var inquiryRoutes = express.Router();
 
 // Base routes
-// /api/main
 apiRoutes.use('/main', baseRoute)
-
+// /api/main
 baseRoute.get('/', function(req, res){
     res.json({message:'it works!'});
 });
 
 // Authentication Routes
-// /api/auth/...
 apiRoutes.use('/auth', authRoutes);
-
+// /api/auth/...
 authRoutes.post('/register', AuthController.register);
 authRoutes.post('/login', requireLogin, AuthController.login);
 
@@ -37,11 +37,16 @@ authRoutes.get('/protected', requireAuth, function(req, res){
     // }
     res.send({content: 'Success'});
 });
+// User Profile Routes
+apiRoutes.use('/user', userRoutes);
+// /api/user/
+userRoutes.get('/:user_id', requireAuth, UserController.getUser)
+userRoutes.post('/:user_id', requireAuth, UserController.editUser)
+
 
 // Book Routes
-// /api/book/...
 apiRoutes.use('/book', bookRoutes);
-
+// /api/book/...
 bookRoutes.get('/:user_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.getBooks);
 bookRoutes.post('/:user_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.createBook);
 bookRoutes.post('/:user_id/:book_id', requireAuth, AuthController.roleAuthorization(['user','admin']), BookController.editBook);
